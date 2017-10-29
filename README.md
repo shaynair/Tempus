@@ -36,6 +36,9 @@ Pull requests will always be welcome!
 ### To-do
 
 [ ] Move from Bower to NPM, Webpack
+
 [ ] Add more features
+
 [ ] Add testing
+
 [ ] And more...
