@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content="Open Data for health."/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <title>Open Data Competition</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png"/>
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png"/>
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png"/>
+    <meta name="msapplication-TileColor" content="#3372DF"/>
+
+    <link rel="shortcut icon" href="images/favicon.png"/>
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css"/>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdl-ext@0.17.1/lib/mdl-ext.min.css"/>
+  </head>
+  <body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="loadingmain" style="margin: 0 auto; width: 100%; text-align: center;" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header" id="main" style="display: none;">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title"></span>
+          <div class="mdl-layout-spacer"></div>
+          <div id="searchbar" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search" id="searchbtn">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
+            </div>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addbtn">
+            <i class="material-icons">add</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="addbtn">
+            Add new
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="backbtn">
+            <i class="material-icons">arrow_back</i>
+          </button>
+          <div class="mdl-tooltip" data-mdl-for="backbtn">
+            Go back
+          </div>
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span id="accname"></span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+              <li class="mdl-menu__item" id="logout"><i class="material-icons">clear</i>Log out</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <div class="mdl-layout-spacer"></div>
+          <!--<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>-->
+        </nav>
+      </div>
+      <main id="content" class="mdl-layout__content mdl-color--grey-100">
+        <div id="loadingcontent" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        {% block content %} {% endblock %}
+      </main>
+      <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+      <div id="offlinebar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+    </div>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- build:css styles/styles.css -->
+    <link rel="stylesheet" href="styles/styles.css">
+    <!-- endbuild -->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/smoothstate/jquery.smoothState.min.js"></script>
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/highcharts/highcharts.js"></script>
+    <script src="/bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="/bower_components/firebase/firebase.js"></script>
+    <script src="/bower_components/axios/dist/axios.min.js"></script>
+    <script src="/bower_components/handlebars/handlebars.min.js"></script>
+    <script src="/bower_components/auth0.js/build/auth0.min.js"></script>
+    <script src="/bower_components/bluebird/js/browser/bluebird.min.js"></script>
+    <script src="/bower_components/babel-polyfill/browser-polyfill.js"></script>
+    <script src="/bower_components/js-polyfills/polyfill.min.js"></script>
+    <script src="/bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="/bower_components/material-design-lite/material.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/plugins.js -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+    <script src="https://cdn.jsdelivr.net/npm/mdl-ext@0.17.1/lib/mdl-ext.min.js"></script>
+  </body>
+</html>

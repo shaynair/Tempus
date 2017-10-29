@@ -1,0 +1,150 @@
+{% extends "layout.ejs" %}
+{% block content %}
+
+  <script id="dashboard-template" type="text/x-handlebars-template">
+    <div class="mdl-grid demo-content">
+      <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+        {% raw %}
+        <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--6-col mdl-cell--6-col-desktop" id="chartone">
+          <use xlink:href="#piechart" mask="url(#piemask)" />
+          <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">{{one}}<tspan font-size="0.1"  dx="0.1" dy="-0.07">{{onetext}}</tspan></text>
+        </svg>
+        <svg fill="currentColor" width="200px" height="200px" viewBox="0 0 1 1" class="demo-chart mdl-cell mdl-cell--6-col mdl-cell--6-col-desktop" id="charttwo">
+          <use xlink:href="#piechart" mask="url(#piemask)" />
+          <text x="0.5" y="0.5" font-family="Roboto" font-size="0.3" fill="#888" text-anchor="middle" dy="0.1">{{two}}<tspan dy="-0.07" dx="0.1" font-size="0.1">{{twotext}}</tspan></text>
+        </svg>
+        {% endraw %}
+      </div>
+      <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col" id="graphdash">
+      </div>
+      <div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+        {% raw %}{{{cards}}}{% endraw %}
+      </div>
+    </div>
+  </script>
+  <script id="nurse-cards" type="text/x-handlebars-template">
+    <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+      <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
+        <h2 class="mdl-card__title-text">Registration</h2>
+      </div>
+      <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+        You can quickly add a patient using the new interface.
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a id="updatebtn" class="mdl-button mdl-js-button mdl-js-ripple-effect">Add a patient</a>
+      </div>
+    </div>
+    <div class="demo-separator mdl-cell--1-col"></div>
+    <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
+      <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
+        <h3>View options</h3>
+        <ul>
+          <li>
+            <label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect is-checked">
+              <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">Beds available</span>
+            </label>
+          </li>
+          <li>
+            <label for="chkbox2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect is-checked">
+              <input type="checkbox" id="chkbox2" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">Doctors available</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </script>
+  <script id="ministry-cards" type="text/x-handlebars-template">
+    <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
+      <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
+        <h3>View options</h3>
+        <ul>
+          <li>
+            <label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect is-checked">
+              <input type="checkbox" id="chkbox1" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">LHINs available</span>
+            </label>
+          </li>
+          <li>
+            <label for="chkbox2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect is-checked">
+              <input type="checkbox" id="chkbox2" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">Hospitals available</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script id="list-template" type="text/x-handlebars-template">
+    <ul class="demo-list-two mdl-list">
+    {% raw %}
+    {{#each objects as |value key|}}
+      <li class="mdl-list__item mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <i class="material-icons mdl-list__item-avatar">{{value.icon}}</i>
+          <span>{{value.name}}</span>
+          <span class="mdl-list__item-sub-title">{{value.state}}</span>
+        </span>
+        <span class="mdl-list__item-secondary-content">
+          <div class="mdlext-js-collapsible mdlext-collapsible" role="button" aria-controls="collapsible-{{key}}">
+            <i class="mdlext-aria-expanded-more-less"></i>
+          </div>
+        </span>
+      </li>
+      <div id="collapsible-{{key}}" class="mdlext-collapsible-group">
+        {{{value.html}}}
+      </div>
+    {{/each}}
+    {% endraw %}
+    </ul>
+  </script>
+  <script id="patient-template" type="text/x-handlebars-template">
+    {% raw %}
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-0-{{id}}">
+      <input type="radio" id="option-0-{{id}}" class="mdl-radio__button" name="options-{{id}}" value="0">
+      <span class="mdl-radio__label">Waiting</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1-{{id}}">
+      <input type="radio" id="option-1-{{id}}" class="mdl-radio__button" name="options-{{id}}" value="1">
+      <span class="mdl-radio__label">Has bed</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2-{{id}}">
+      <input type="radio" id="option-2-{{id}}" class="mdl-radio__button" name="options-{{id}}" value="2">
+      <span class="mdl-radio__label">Has doctor</span>
+    </label>
+    <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-3-{{id}}">
+      <input type="radio" id="option-3-{{id}}" class="mdl-radio__button" name="options-{{id}}" value="3">
+      <span class="mdl-radio__label">Finished</span>
+    </label>
+    <button id="submit-{{id}}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+      Confirm
+    </button>
+    {% endraw %}
+  </script>
+  <script id="hospital-template" type="text/x-handlebars-template">
+    {% raw %}
+    <canvas id="hospitalChart-{{id}}"></canvas>
+    {% endraw %}
+  </script>
+  <script id="form-template" type="text/x-handlebars-template">
+    <form action="#" class="mdl-form">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="patientname">
+        <label class="mdl-textfield__label" for="patientname">Name</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="patientid">
+        <label class="mdl-textfield__label" for="patientid">Health Care Number</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="patientid">
+        <label class="mdl-textfield__label" for="patientid">Province/Territory</label>
+      </div>
+      <button id="patientsubmit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Submit
+      </button>
+    </form>
+  </script>
+{% endblock %}
